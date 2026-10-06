@@ -319,6 +319,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public enum KeyboardSwitchState {
         HIDDEN(-1),
+        SYMBOLS(KeyboardId.ELEMENT_SYMBOLS),
         SYMBOLS_SHIFTED(KeyboardId.ELEMENT_SYMBOLS_SHIFTED),
         EMOJI(KeyboardId.ELEMENT_EMOJI_RECENTS),
         OTHER(-1);
@@ -340,10 +341,24 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             return KeyboardSwitchState.HIDDEN;
         } else if (isShowingEmojiPalettes()) {
             return KeyboardSwitchState.EMOJI;
+        } else if (isShowingKeyboardId(KeyboardId.ELEMENT_SYMBOLS)) {
+            return KeyboardSwitchState.SYMBOLS;
         } else if (isShowingKeyboardId(KeyboardId.ELEMENT_SYMBOLS_SHIFTED)) {
             return KeyboardSwitchState.SYMBOLS_SHIFTED;
         }
         return KeyboardSwitchState.OTHER;
+    }
+
+    public void cycleSymbolsKeyboard() {
+        final KeyboardSwitchState currentState = getKeyboardSwitchState();
+        if (currentState == KeyboardSwitchState.SYMBOLS_SHIFTED
+                || currentState == KeyboardSwitchState.SYMBOLS) {
+            // SYMBOLS_SHIFTED -> SYMBOLS, then SYMBOLS -> hidden because
+            // onToggleKeyboard() hides the keyboard when given its current state.
+            onToggleKeyboard(KeyboardSwitchState.SYMBOLS);
+        } else {
+            onToggleKeyboard(KeyboardSwitchState.SYMBOLS_SHIFTED);
+        }
     }
 
     public void onToggleKeyboard(@Nonnull final KeyboardSwitchState toggleState) {

@@ -1807,6 +1807,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // Hooks for hardware keyboard
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
+        if (keyCode == KeyEvent.KEYCODE_SYM) {
+            // Consume the dedicated physical SYM key. The symbols keyboard is
+            // shown on key-up so one press cannot toggle it more than once.
+            return true;
+        }
         if (mEmojiAltPhysicalKeyDetector == null) {
             mEmojiAltPhysicalKeyDetector = new EmojiAltPhysicalKeyDetector(
                     getApplicationContext().getResources());
@@ -1832,6 +1837,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public boolean onKeyUp(final int keyCode, final KeyEvent keyEvent) {
+        if (keyCode == KeyEvent.KEYCODE_SYM) {
+            if (!keyEvent.isCanceled()) {
+                mKeyboardSwitcher.cycleSymbolsKeyboard();
+            }
+            return true;
+        }
         if (mEmojiAltPhysicalKeyDetector == null) {
             mEmojiAltPhysicalKeyDetector = new EmojiAltPhysicalKeyDetector(
                     getApplicationContext().getResources());

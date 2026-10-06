@@ -46,11 +46,6 @@
     <Key
         latin:keyStyle="currencyKeyStyle"
         latin:keyLabelFlags="followKeyLetterRatio" />
-    <Key
-        latin:keySpec="!text/keyspec_symbols_percent"
-        latin:moreKeys="!text/morekeys_symbols_percent" />
-    <Key
-        latin:keySpec="&amp;" />
     <!-- U+2013: "–" EN DASH
          U+2014: "—" EM DASH
          U+00B7: "·" MIDDLE DOT -->
@@ -60,6 +55,8 @@
     <Key
         latin:keySpec="+"
         latin:moreKeys="!text/morekeys_plus" />
+    <include
+        latin:keyboardLayout="@xml/keys_curly_brackets" />
     <include
         latin:keyboardLayout="@xml/keys_parentheses" />
 </merge>

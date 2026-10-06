@@ -23,6 +23,11 @@
 >
     <Key
         latin:keySpec="\\" />
+    <Key
+        latin:keySpec="!text/keyspec_symbols_percent"
+        latin:moreKeys="!text/morekeys_symbols_percent" />
+    <Key
+        latin:keySpec="&amp;" />
     <!-- U+00A9: "©" COPYRIGHT SIGN -->
     <Key
         latin:keySpec="&#x00A9;" />
@@ -35,6 +40,4 @@
     <!-- U+2105: "℅" CARE OF -->
     <Key
         latin:keySpec="&#x2105;" />
-    <include
-        latin:keyboardLayout="@xml/keys_square_brackets" />
 </merge>
